@@ -1,9 +1,13 @@
+mod atomic;
+mod features;
 mod generator;
+mod paths;
 mod structures;
 
 use generator::onboard;
 
-// Learn more about Tauri commands at https://tauri.app/develop/calling-rust/
+use features::settings::*;
+
 #[tauri::command]
 fn greet(name: &str) -> String {
     format!("Hello, {}! You've been greeted from Rust!", name)
@@ -19,7 +23,13 @@ pub fn run() {
             }
             Ok(())
         })
-        .invoke_handler(tauri::generate_handler![greet, onboard])
+        .invoke_handler(tauri::generate_handler![
+            greet,
+            onboard,
+            load_settings,
+            save_settings,
+            reset_settings
+        ])
         .run(tauri::generate_context!())
         .expect("error while running tauri application");
 }

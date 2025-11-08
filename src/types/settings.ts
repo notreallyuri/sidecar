@@ -1,29 +1,29 @@
-type Theme = 'light' | 'dark' | 'system';
+type Theme = "light" | "dark" | "system";
 
 type InterfaceSettings = {
-    darkMode: Theme;
-}
+	darkMode: Theme;
+};
 
 type AccessSettings = {
-    allowExternalPlugins: boolean;
-}
+	allowExternalPlugins: boolean;
+};
 
 type AppSettings = {
-    interface: InterfaceSettings;
-    access: AccessSettings;
-}
+	interfaceSettings: InterfaceSettings;
+	accessSettings: AccessSettings;
+};
 
 type OnboardResult = {
-    settingsCreated: boolean;
-    pluginsCreated: boolean;
-    manifestCreated: boolean;
-    appDir: string;
-}
+	settingsCreated: boolean;
+	pluginsCreated: boolean;
+	manifestCreated: boolean;
+	appDir: string;
+};
 
 export type {
-    Theme,
-    InterfaceSettings,
-    AccessSettings,
-    AppSettings,
-    OnboardResult
-}
+	Theme,
+	InterfaceSettings,
+	AccessSettings,
+	AppSettings,
+	OnboardResult,
+};

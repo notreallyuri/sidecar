@@ -1,6 +1,6 @@
 {
   "$schema": "https://schema.tauri.app/config/2",
-  "productName": "sidecar",
+  "productName": "Sidecar",
   "version": "0.1.0",
   "identifier": "com.yuri.sidecar",
   "build": {
@@ -12,9 +12,10 @@
   "app": {
     "windows": [
       {
-        "title": "sidecar",
+        "title": "Sidecar",
         "width": 800,
-        "height": 600
+        "height": 600,
+        "decorations": false
       }
     ],
     "security": {

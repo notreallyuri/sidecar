@@ -32,7 +32,6 @@ pub fn onboard(app: AppHandle) -> Result<OnboardResult, String> {
 
     if !app_dir.exists() {
         fs::create_dir_all(&app_dir).map_err(|e| e.to_string())?;
-        println!("Created app data directory at {:?}", app_dir);
     }
 
     if !settings_path.exists() {
@@ -40,13 +39,11 @@ pub fn onboard(app: AppHandle) -> Result<OnboardResult, String> {
         let json = serde_json::to_string_pretty(&default_settings).map_err(|e| e.to_string())?;
         fs::write(&settings_path, json).map_err(|e| e.to_string())?;
         settings_created = true;
-        println!("Created default settings at {:?}", settings_path);
     }
 
     if !plugins_dir.exists() {
         fs::create_dir_all(&plugins_dir).map_err(|e| e.to_string())?;
         plugins_created = true;
-        println!("Created plugins directory at {:?}", plugins_dir);
     }
 
     if !plugin_manifest_path.exists() {
@@ -54,15 +51,14 @@ pub fn onboard(app: AppHandle) -> Result<OnboardResult, String> {
         let json = serde_json::to_string_pretty(&default_manifest).map_err(|e| e.to_string())?;
         fs::write(&plugin_manifest_path, json).map_err(|e| e.to_string())?;
         manifest_created = true;
-        println!(
-            "Created default plugin manifest at {:?}",
-            plugin_manifest_path
-        );
     }
-    Ok(OnboardResult {
+
+    let result = OnboardResult {
         settings_created,
         plugins_created,
         manifest_created,
         app_dir: app_dir.to_string_lossy().to_string(),
-    })
+    };
+
+    Ok(result)
 }
