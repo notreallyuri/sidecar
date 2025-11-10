@@ -1,6 +1,5 @@
 import {
 	Card,
-	CardContent,
 	CardDescription,
 	CardHeader,
 	CardTitle,
@@ -13,21 +12,28 @@ export default function Home() {
 			<Card>
 				<CardHeader>
 					<CardTitle>Welcome to Sidecar</CardTitle>
-					<CardDescription>Placeholder description</CardDescription>
+					<CardDescription>
+						Easily use terminal commands by adding JSON files in the plugins
+						installation folder.
+					</CardDescription>
 				</CardHeader>
-				<CardContent className="text-muted-foreground">
-					<p>This is the home page. More content coming soon!</p>
-				</CardContent>
 			</Card>
 			<div className="grid grid-cols-4 gap-4">
 				<Card>
 					<CardHeader>
-						<CardTitle />
+						<CardTitle>Simple Install</CardTitle>
+						<CardDescription>
+							You just need a simple JSON file to setup a plugin.
+						</CardDescription>
 					</CardHeader>
 				</Card>
 				<Card>
 					<CardHeader>
-						<CardTitle />
+						<CardTitle>Simple Interaction</CardTitle>
+						<CardDescription>
+							After installation, the app will use the JSON as a parameter to
+							setup arguments and flags
+						</CardDescription>
 					</CardHeader>
 				</Card>
 				<Card>

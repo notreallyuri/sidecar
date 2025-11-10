@@ -38,7 +38,12 @@ type Props = {
 };
 
 export function SettingsDialog({ open, onOpenChange, dark }: Props) {
-	const data: Record<string, { name: string; icon: LucideIcon }[]> = {
+	type SidebarData = {
+		name: string;
+		icon: LucideIcon;
+	};
+
+	const data: Record<string, SidebarData[]> = {
 		nav: [
 			{ name: "Notifications", icon: Bell },
 			{ name: "Navigation", icon: Menu },

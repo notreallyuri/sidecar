@@ -1,5 +1,5 @@
-use tauri::{AppHandle, Manager, Error};
 use std::path::PathBuf;
+use tauri::{AppHandle, Error, Manager};
 
 pub fn get_app_data_dir(app: &AppHandle) -> Result<PathBuf, Error> {
     app.path().app_data_dir()

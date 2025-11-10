@@ -12,6 +12,7 @@ pub enum FieldType {
 #[derive(Debug, Serialize, Deserialize)]
 pub struct PluginField {
     pub label: String,
+    pub description: Option<String>,
     pub flag: Option<String>,
     #[serde(rename = "type")]
     pub field_type: FieldType,
