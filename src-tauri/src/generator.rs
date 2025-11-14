@@ -1,4 +1,4 @@
-use super::structures::{plugin::PluginManifest, settings::AppSettings};
+use super::structures::settings::AppSettings;
 use serde::Serialize;
 use std::fs;
 use tauri::{AppHandle, Manager};
@@ -7,10 +7,6 @@ use tauri::{AppHandle, Manager};
 pub struct OnboardResult {
     #[serde(rename = "settingsCreated")]
     pub settings_created: bool,
-    #[serde(rename = "pluginsCreated")]
-    pub plugins_created: bool,
-    #[serde(rename = "manifestCreated")]
-    pub manifest_created: bool,
     #[serde(rename = "appDir")]
     pub app_dir: String,
 }
@@ -22,16 +18,22 @@ pub fn onboard(app: AppHandle) -> Result<OnboardResult, String> {
         .app_data_dir()
         .map_err(|e| format!("Failed to get app data directory: {e}"))?;
 
+    let videos_dir = app
+        .path()
+        .video_dir()
+        .map_err(|e| format!("Failed to get videos directory: {e}"))?
+        .join("sider");
+
     let settings_path = app_dir.join("settings.json");
-    let plugins_dir = app_dir.join("plugins");
-    let plugin_manifest_path = plugins_dir.join("manifest.json");
 
     let mut settings_created = false;
-    let mut plugins_created = false;
-    let mut manifest_created = false;
 
     if !app_dir.exists() {
         fs::create_dir_all(&app_dir).map_err(|e| e.to_string())?;
+    }
+
+    if !videos_dir.exists() {
+        fs::create_dir_all(&videos_dir).map_err(|e| e.to_string())?;
     }
 
     if !settings_path.exists() {
@@ -41,22 +43,8 @@ pub fn onboard(app: AppHandle) -> Result<OnboardResult, String> {
         settings_created = true;
     }
 
-    if !plugins_dir.exists() {
-        fs::create_dir_all(&plugins_dir).map_err(|e| e.to_string())?;
-        plugins_created = true;
-    }
-
-    if !plugin_manifest_path.exists() {
-        let default_manifest = PluginManifest::default();
-        let json = serde_json::to_string_pretty(&default_manifest).map_err(|e| e.to_string())?;
-        fs::write(&plugin_manifest_path, json).map_err(|e| e.to_string())?;
-        manifest_created = true;
-    }
-
     let result = OnboardResult {
         settings_created,
-        plugins_created,
-        manifest_created,
         app_dir: app_dir.to_string_lossy().to_string(),
     };
 
